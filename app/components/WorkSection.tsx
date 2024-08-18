@@ -112,7 +112,6 @@ const WorkSection = () => {
                   }}
                 >
                   <div className="w-full row-span-3 relative max-h-[300px]">
-                    {" "}
                     <Image
                       width={0}
                       height={0}

@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import { statsType } from "../types/apiTypes";
+import { apiBaseUrl } from "@/flags";
 
 export const fetchDataStats = async (setData: SetStateAction<Dispatch<statsType | null>>) => {
-    const url = "https://cms.orrisarena.com/api/stats";
+  const url = `${apiBaseUrl}/stats`;
 
     fetch(url, {
         method: 'GET',

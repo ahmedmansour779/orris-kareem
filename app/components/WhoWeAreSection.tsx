@@ -5,11 +5,11 @@ import { fetchDataAboutUs } from "../apis/getDataAboutUs";
 import { aboutUsType } from "../types/apiTypes";
 
 const WhoWeAreSection = () => {
-  const [data, setData] = useState<aboutUsType | null>(null)
+  const [data, setData] = useState<aboutUsType | null>(null);
 
   useEffect(() => {
-    fetchDataAboutUs(setData)
-  }, [])
+    fetchDataAboutUs(setData);
+  }, []);
 
   return (
     <div
@@ -18,7 +18,6 @@ const WhoWeAreSection = () => {
       data-aos-duration="1200"
       id="about"
     >
-      {" "}
       <div className="text-center text-white mb-10">
         <h2 className="text-5xl font-semibold  max-md:text-4xl mb-16 max-md:mb-8">
           {data?.title}

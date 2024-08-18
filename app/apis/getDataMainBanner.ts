@@ -1,24 +1,26 @@
 import { Dispatch, SetStateAction } from "react";
 import { mainBannerType } from "../types/apiTypes";
+import { apiBaseUrl } from "@/flags";
 
-export const fetchDataMainBanner = async (setData: SetStateAction<Dispatch<mainBannerType>>) => {
-    const url = "https://cms.orrisarena.com/api/main-banner";
+export const fetchDataMainBanner = async (
+  setData: SetStateAction<Dispatch<mainBannerType>>
+) => {
+  const url = `${apiBaseUrl}/main-banner`;
 
-    fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => setData(data))
-        .catch(error => {
-            console.error('Fetch Error:', error);
-        });
-
+    .then((data) => setData(data))
+    .catch((error) => {
+      console.error("Fetch Error:", error);
+    });
 };
