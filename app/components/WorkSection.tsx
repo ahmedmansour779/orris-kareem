@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useEffect, useState } from "react";
 import ImgsViewer from "react-images-viewer";
@@ -23,17 +24,51 @@ const WorkSection = () => {
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [data, setData] = useState<projectsType[] | null>(null);
   const [isVideo, setIsVideo] = useState<boolean>(false);
+  const [src, setSrc] = useState<string>("");
+  const [prev, setPrev] = useState<boolean>(false);
+  const [next, setNext] = useState<boolean>(false);
+  const [indexOne, setIndexOne] = useState<number>(0);
+  const [indexTwo, setIndexTwo] = useState<number>(0);
 
   const dataPopUp: { src: string, isVideo?: boolean }[][] = [];
 
-  const gotoPrevious = () => {
-    setCurrImg((currImg) => Math.max(currImg - 1, 0));
+  const gotoPrevious = (index:number) => {
+    // console.log("Nextprev",index-1)
+    if(index-1 >= 0 ){
+      setNext(false)
+      setIndexTwo(prev=>prev-1)
+      const mySrc = dataPopUp[indexOne][index-1].src
+      const video:any = dataPopUp[indexOne][index-1].isVideo
+      // console.log(mySrc)
+      // console.log(video)
+      setIsVideo(video)
+      setSrc(mySrc)
+    }
+    else{
+      setPrev(true)
+      setNext(false)
+    }
   };
 
-  const gotoNext = () => {
-    setCurrImg((currImg) =>
-      currImg === projectsData.length ? 0 : currImg + 1
-    ); // Adjust the max value based on the number of images
+  const gotoNext = (index:number) => {
+    // console.log("next",index+1)
+    if(index+1 < dataPopUp[indexOne].length){
+      setPrev(false)
+      setIndexTwo(prev=>prev+1)
+      const mySrc = dataPopUp[indexOne][index+1].src
+      const video:any = dataPopUp[indexOne][index+1].isVideo
+      // console.log(mySrc)
+      // console.log(video)
+      setIsVideo(video)
+      setSrc(mySrc)
+    }
+    else{
+      setNext(true)
+      setPrev(false)
+    }
+    // setCurrImg((currImg) =>
+    //   currImg === projectsData.length ? 0 : currImg + 1
+    // ); // Adjust the max value based on the number of images
   };
 
   const closeViewer = () => {
@@ -45,11 +80,15 @@ const WorkSection = () => {
     fetchDataProjects(setData);
   }, []);
 
+  // console.log(data)
   // Helper function to determine media type
   const isImage = (url: string) => /\.(jpg|jpeg|png|gif|svg)$/i.test(url);
 
   const handleClickSlide = (index: number) => {
     const isCurrSlideVideo = !isImage(dataPopUp[index][0].src);
+    // console.log(dataPopUp[index])
+    setSrc(dataPopUp[index][0].src)
+    setIndexOne(index)
     setIsVideo(isCurrSlideVideo);
     setCurrImg(0); // Always start from the first image/video in the set
     setCurrentImg(index);
@@ -157,67 +196,81 @@ const WorkSection = () => {
       </div>
 
       {viewerIsOpen && (
-        isVideo ? (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center">
-            <button
-              className="absolute top-4 right-4 text-white text-3xl"
-              onClick={closeViewer}
-            >
-              &times;
-            </button>
-            <video
-              className="w-3/4 h-auto"
-              controls
-              autoPlay
-            >
-              <source
-                src={dataPopUp[currentImg][currImg].src}
-                type="video/mp4"
-              />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        ) : (
-          <ImgsViewer
-            imgs={dataPopUp[currentImg]}
-            currImg={currImg}
-            showThumbnails={true}
-            isOpen={viewerIsOpen}
-            onClickPrev={gotoPrevious}
-            onClickNext={gotoNext}
-            onClose={closeViewer}
-            onClickThumbnail={(id) => setCurrImg(id)}
-            onClickImg={gotoNext}
-            width={1200}
-            theme={{
-              arrow: {
-                backgroundColor: "#fff",
-                fill: "#000",
-                borderRadius: 50,
-                transition: "opacity 200ms",
-              },
-              arrow__size__medium: {
-                height: 48,
-                width: `48px !important`,
-              },
-              arrow__size__small: {
-                marginTop: 0,
-                height: `40px !important`,
-                position: "inherit",
-              },
-              arrow__direction__left: {
-                position: "initial",
-                order: "-1",
-                marginTop: 0,
-              },
-              arrow__direction__right: { position: "initial", marginTop: 0 },
-              container: { gap: 20 },
-            }}
-          />
-        )
+        <div className="fixed inset-0 px-3 sm:px-10 z-50 bg-black bg-opacity-80 flex items-center justify-center">
+          <button
+                className="absolute top-4 right-4 text-white text-3xl"
+                onClick={closeViewer}
+              >
+                &times;
+          </button>
+          <button disabled={prev} onClick={()=>{
+            gotoPrevious(indexTwo)
+            }} className="w-14 sm:w-auto">
+            <Image src={ArrowLeft} className="w-full max-md:w-6" alt="" />
+          </button>
+          {isVideo ? (
+              <video
+                className="w-[80%] sm:w-3/4 h-auto mx-2 sm:mx-5"
+                controls
+                autoPlay
+              >
+                <source
+                  src={src}
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+          ) : (
+            <img src={src} alt="Image" className="w-[80%] sm:w-3/4 h-auto mx-2 sm:mx-5" />
+          )}
+          <button disabled={next} onClick={()=>{
+            gotoNext(indexTwo)
+          }} className="w-14 sm:w-auto">
+            <Image src={ArrowRight} className="w-full max-md:w-6" alt="" />
+          </button>
+        </div>
       )}
     </div>
   );
 };
 
 export default WorkSection;
+
+
+
+// <ImgsViewer
+          //   imgs={dataPopUp[currentImg]}
+          //   currImg={currImg}
+          //   showThumbnails={true}
+          //   isOpen={viewerIsOpen}
+          //   onClickPrev={gotoPrevious}
+          //   onClickNext={gotoNext}
+          //   onClose={closeViewer}
+          //   onClickThumbnail={(id) => setCurrImg(id)}
+          //   onClickImg={gotoNext}
+          //   width={1200}
+          //   theme={{
+          //     arrow: {
+          //       backgroundColor: "#fff",
+          //       fill: "#000",
+          //       borderRadius: 50,
+          //       transition: "opacity 200ms",
+          //     },
+          //     arrow__size__medium: {
+          //       height: 48,
+          //       width: `48px !important`,
+          //     },
+          //     arrow__size__small: {
+          //       marginTop: 0,
+          //       height: `40px !important`,
+          //       position: "inherit",
+          //     },
+          //     arrow__direction__left: {
+          //       position: "initial",
+          //       order: "-1",
+          //       marginTop: 0,
+          //     },
+          //     arrow__direction__right: { position: "initial", marginTop: 0 },
+          //     container: { gap: 20 },
+          //   }}
+          // />
