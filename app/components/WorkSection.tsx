@@ -22,8 +22,9 @@ const WorkSection = () => {
   const [currentImg, setCurrentImg] = useState<number>(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [data, setData] = useState<projectsType[] | null>(null);
+  const [isVideo, setIsVideo] = useState<boolean>(false);
 
-  const dataPopUp: { src: string }[][] = [];
+  const dataPopUp: { src: string, isVideo?: boolean }[][] = [];
 
   const gotoPrevious = () => {
     setCurrImg((currImg) => Math.max(currImg - 1, 0));
@@ -37,11 +38,23 @@ const WorkSection = () => {
 
   const closeViewer = () => {
     setViewerIsOpen(false);
+    setIsVideo(false); // Reset video state
   };
 
   useEffect(() => {
-    fetchDataProjects(setData)
-  }, [])
+    fetchDataProjects(setData);
+  }, []);
+
+  // Helper function to determine media type
+  const isImage = (url: string) => /\.(jpg|jpeg|png|gif|svg)$/i.test(url);
+
+  const handleClickSlide = (index: number) => {
+    const isCurrSlideVideo = !isImage(dataPopUp[index][0].src);
+    setIsVideo(isCurrSlideVideo);
+    setCurrImg(0); // Always start from the first image/video in the set
+    setCurrentImg(index);
+    setViewerIsOpen(true);
+  };
 
   return (
     <div id="work" className="px-20 pb-32 max-md:px-5">
@@ -94,24 +107,19 @@ const WorkSection = () => {
           },
         }}
       >
-        {data?.map(
-          ({ cover, title, images }, index) => {
-            const imagesPopUp: { src: string }[] = [];
-            images.forEach((image) => imagesPopUp.push({ src: image }))
-            dataPopUp.push(imagesPopUp)
-            return (
-              <SwiperSlide
-                className="!h-auto" key={index}>
-                <div
-                  key={index}
-                  className="w-full bg-white rounded-[4px] px-2 pt-2 pb-6 grid grid-rows-4 gap-6 group cursor-pointer border-[1px] border-[#B0B0B0] h-full max-md:gap-2 max-md:pb-2"
-                  onClick={() => {
-                    setCurrImg(index);
-                    setCurrentImg(index);
-                    setViewerIsOpen(true);
-                  }}
-                >
-                  <div className="w-full row-span-3 relative max-h-[300px]">
+        {data?.map(({ cover, title, images }, index) => {
+          const imagesPopUp: { src: string, isVideo?: boolean }[] = [];
+          images.forEach((image) => imagesPopUp.push({ src: image, isVideo: !isImage(image) }));
+          dataPopUp.push(imagesPopUp);
+          return (
+            <SwiperSlide className="!h-auto" key={index}>
+              <div
+                key={index}
+                className="w-full bg-white rounded-[4px] px-2 pt-2 pb-6 grid grid-rows-4 gap-6 group cursor-pointer border-[1px] border-[#B0B0B0] h-full max-md:gap-2 max-md:pb-2"
+                onClick={() => handleClickSlide(index)}
+              >
+                <div className="w-full row-span-3 relative max-h-[300px]">
+                  {isImage(cover) ? (
                     <Image
                       width={0}
                       height={0}
@@ -120,78 +128,94 @@ const WorkSection = () => {
                       src={cover}
                       alt=""
                     />
-                    <Image
-                      src={cover}
-                      width={0}
-                      height={100}
-                      sizes="100vw"
-                      className="opacity-0 absolute h-full w-full left-0 top-0 group-hover:opacity-100 duration-300 object-cover object-top"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="text-center row-span-1 flex justify-center items-center">
-                    <p className="text-xl font-medium max-md:text-xs">
-                      {title}
-                    </p>
-                  </div>
+                  ) : (
+                    <video className="w-full h-full object-cover" controls>
+                      <source src={cover} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
                 </div>
-              </SwiperSlide>
-            )
-          }
-        )}
+
+                <div className="text-center row-span-1 flex justify-center items-center">
+                  <p className="text-xl font-medium max-md:text-xs">
+                    {title}
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
       <div className="flex justify-between items-center p-8 mt-6 max-md:p-3">
-        <button className=" swiper-button-prev-work">
-          <Image src={ArrowLeft} className="w-8 max-md:w-6" alt=""></Image>
+        <button className="swiper-button-prev-work">
+          <Image src={ArrowLeft} className="w-8 max-md:w-6" alt="" />
         </button>
         <div className="swiper-pagination !static"></div>
-        <button className=" swiper-button-next-work">
-          <Image src={ArrowRight} className="w-8 max-md:w-6" alt=""></Image>
+        <button className="swiper-button-next-work">
+          <Image src={ArrowRight} className="w-8 max-md:w-6" alt="" />
         </button>
       </div>
 
-      <ImgsViewer
-        imgs={dataPopUp.length > 0 ? dataPopUp[currentImg] : [
-          ...projectsData.map((project) => {
-            return { src: project.image };
-          }),
-          { src: SaudiHoverDevelopment.src },
-        ]}
-        currImg={currImg}
-        showThumbnails={true}
-        isOpen={viewerIsOpen}
-        onClickPrev={gotoPrevious}
-        onClickNext={gotoNext}
-        onClose={closeViewer}
-        onClickThumbnail={(id) => setCurrImg(id)}
-        onClickImg={gotoNext}
-        width={1200}
-        theme={{
-          arrow: {
-            backgroundColor: "#fff",
-            fill: "#000",
-            borderRadius: 50,
-            transition: "opacity 200ms",
-          },
-          arrow__size__medium: {
-            height: 48,
-            width: `48px !important`,
-          },
-          arrow__size__small: {
-            marginTop: 0,
-            height: `40px !important`,
-            position: "inherit",
-          },
-          arrow__direction__left: {
-            position: "initial",
-            order: "-1",
-            marginTop: 0,
-          },
-          arrow__direction__right: { position: "initial", marginTop: 0 },
-          container: { gap: 20 },
-        }}
-      />
+      {viewerIsOpen && (
+        isVideo ? (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center">
+            <button
+              className="absolute top-4 right-4 text-white text-3xl"
+              onClick={closeViewer}
+            >
+              &times;
+            </button>
+            <video
+              className="w-3/4 h-auto"
+              controls
+              autoPlay
+            >
+              <source
+                src={dataPopUp[currentImg][currImg].src}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        ) : (
+          <ImgsViewer
+            imgs={dataPopUp[currentImg]}
+            currImg={currImg}
+            showThumbnails={true}
+            isOpen={viewerIsOpen}
+            onClickPrev={gotoPrevious}
+            onClickNext={gotoNext}
+            onClose={closeViewer}
+            onClickThumbnail={(id) => setCurrImg(id)}
+            onClickImg={gotoNext}
+            width={1200}
+            theme={{
+              arrow: {
+                backgroundColor: "#fff",
+                fill: "#000",
+                borderRadius: 50,
+                transition: "opacity 200ms",
+              },
+              arrow__size__medium: {
+                height: 48,
+                width: `48px !important`,
+              },
+              arrow__size__small: {
+                marginTop: 0,
+                height: `40px !important`,
+                position: "inherit",
+              },
+              arrow__direction__left: {
+                position: "initial",
+                order: "-1",
+                marginTop: 0,
+              },
+              arrow__direction__right: { position: "initial", marginTop: 0 },
+              container: { gap: 20 },
+            }}
+          />
+        )
+      )}
     </div>
   );
 };
