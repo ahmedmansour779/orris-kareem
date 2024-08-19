@@ -210,7 +210,7 @@ const WorkSection = () => {
           </button>
           {isVideo ? (
               <video
-                className="w-[80%] sm:w-3/4 h-auto mx-2 sm:mx-5"
+                className="w-[80%] sm:w-[65%] h-auto mx-2 sm:mx-5"
                 controls
                 autoPlay
               >
@@ -221,13 +221,42 @@ const WorkSection = () => {
                 Your browser does not support the video tag.
               </video>
           ) : (
-            <img src={src} alt="Image" className="w-[80%] sm:w-3/4 h-auto mx-2 sm:mx-5" />
+            <img src={src} alt="Image" className="w-[80%] sm:w-[65%] h-auto mx-2 sm:mx-5" />
           )}
           <button disabled={next} onClick={()=>{
             gotoNext(indexTwo)
           }} className="w-14 sm:w-auto">
             <Image src={ArrowRight} className="w-full max-md:w-6" alt="" />
           </button>
+          <div className="flex gap-2 absolute bottom-1 left-1/2 -translate-x-1/2">
+            {
+              dataPopUp[indexOne].map((image, index) => (
+                image.isVideo ?
+                <div key={index} className="cursor-pointer w-12 sm:w-16" onClick={()=>{
+                  setIsVideo(true)
+                  setSrc(image.src)
+                  setIndexTwo(index)
+                }}>
+                    <video
+                    className="w-full h-auto"
+                  >
+                    <source
+                      src={image.src}
+                      type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                :<div key={index}  className="cursor-pointer w-12 sm:w-16" onClick={()=>{
+                  setIsVideo(false)
+                  setSrc(image.src)
+                  setIndexTwo(index)
+                }}>
+                  <img src={image.src} alt="Image" className="w-full h-auto" />
+                </div>
+              ))
+            }
+          </div>
         </div>
       )}
     </div>
