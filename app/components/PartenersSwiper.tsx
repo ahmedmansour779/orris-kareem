@@ -16,6 +16,9 @@ const PartenersSwiper = ({
 }: {
   parteners: clientsType[] | undefined;
 }) => {
+  let all = parteners?.concat(parteners).concat(parteners).concat(parteners)
+  // all = all?.concat(all)
+  console.log("all",all)
   return (
     <div className="relative">
       <Swiper
@@ -27,17 +30,14 @@ const PartenersSwiper = ({
         loop={true}
         modules={[Autoplay, Navigation]}
         slidesPerView={"auto"}
-        centeredSlides
+        // centeredSlides
         breakpoints={{
           300: { spaceBetween: 20 },
           640: { spaceBetween: 30 },
           768: { spaceBetween: 40 },
         }}
       >
-        {parteners && parteners
-          .concat(parteners)
-          .concat(parteners)
-          .map(({ id, image }, index) => (
+        {parteners && all?.map(({ id, image }) => (
             <SwiperSlide className="!h-32 !w-fit max-md:!h-16" key={id}>
               <Image
                 width={0}

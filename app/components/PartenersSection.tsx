@@ -11,6 +11,7 @@ const PartenersSection = () => {
     fetchDataClients(setClientsData)
   }, [])
 
+  console.log(clientsData)
   return (
     <div
       className="px-20 pb-32 max-md:px-5"

@@ -49,7 +49,7 @@ const ContactUs = () => {
         <h2 className="text-white text-5xl font-semibold mb-12  max-md:text-center max-md:mb-6 max-md:text-4xl">
           Contact Us
         </h2>
-        <p className="text-white text-3xl font-light max-md:text-lg text-center">
+        <p className="text-white text-3xl font-light max-md:text-lg">
           Have questions or ready to start your next project? Reach out to Orris
           Creative Arena.
         </p>

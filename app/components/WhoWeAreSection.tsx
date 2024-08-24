@@ -22,7 +22,7 @@ const WhoWeAreSection = () => {
         <h2 className="text-5xl font-semibold  max-md:text-4xl mb-16 max-md:mb-8">
           {data?.title}
         </h2>
-        <h3 className="text-[28px] font-light  mx-auto max-md:text-lg">
+        <h3 className="text-[28px] text-start font-light  mx-auto max-md:text-lg">
           {data?.content}
         </h3>
       </div>

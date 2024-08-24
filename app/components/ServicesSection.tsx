@@ -9,7 +9,7 @@ import { servicesType, clientsType } from "../types/apiTypes";
 const ServicesSection = () => {
   const [growed, setGrowed] = useState(0);
   const [dataService, setDataService] = useState<servicesType[] | null>(null);
-  const [dataClients, setDataClients] = useState<clientsType[] | null>(null); // New state for client data
+  const [dataClients, setDataClients] = useState<clientsType[]>(); // New state for client data
 
   useEffect(() => {
     // Fetch client data and update the state
@@ -48,7 +48,7 @@ const ServicesSection = () => {
             return (
               <div
                 key={id}
-                className={`${growed === index ? "flex-1" : "w-[200px]"} min-w-[200px] h-[360px] rounded-[1.25rem] border-[1px] border-[#B0B0B0] relative overflow-hidden duration-300 max-md:w-full max-md:h-full`}
+                className={`${growed === index ? "flex-1" : "w-[150px]"} min-w-[150px] h-[360px] rounded-[1.25rem] border-[1px] border-[#B0B0B0] relative overflow-hidden duration-300 max-md:w-full max-md:h-full`}
                 onMouseOver={() => {
                   setGrowed(index);
                 }}
@@ -73,7 +73,7 @@ const ServicesSection = () => {
                   } absolute h-full w-full left-0 top-0 duration-300 object-cover object-center`}
                   alt=""
                 />
-                <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-[#000000] to-[#00000000] z-10"></div>
+                <div className="absolute w-full top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-[#000000] to-[#00000000] z-10"></div>
                 <div className="text-center absolute w-full bottom-5 left-0 z-20">
                   <h3 className="text-3xl font-bold text-white">
                     {dataService ? dataService[index].title : title}

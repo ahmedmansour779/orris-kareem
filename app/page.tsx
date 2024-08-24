@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import CountersSection from "./components/CountersSection";
 import ServicesSection from "./components/ServicesSection";
@@ -12,8 +11,7 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <Hero />
+      <Hero/>
       <CountersSection />
       <ServicesSection />
       <WorkSection />

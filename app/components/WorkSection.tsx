@@ -151,10 +151,10 @@ const WorkSection = () => {
             <SwiperSlide className="!h-auto" key={index}>
               <div
                 key={index}
-                className="w-full bg-white rounded-[4px] px-2 pt-2 pb-6 grid grid-rows-4 gap-6 group cursor-pointer border-[1px] border-[#B0B0B0] h-full max-md:gap-2 max-md:pb-2"
+                className="w-full bg-white rounded-[4px] px-2 py-2 grid gap-1 group cursor-pointer border-[1px] border-[#B0B0B0] h-full max-md:gap-2 max-md:pb-2"
                 onClick={() => handleClickSlide(index)}
               >
-                <div className="w-full row-span-3 relative max-h-[300px]">
+                <div className="w-full relative max-h-[220px]">
                   {isImage(cover) ? (
                     <Image
                       width={0}
@@ -172,8 +172,8 @@ const WorkSection = () => {
                   )}
                 </div>
 
-                <div className="text-center row-span-1 flex justify-center items-center">
-                  <p className="text-xl font-medium max-md:text-xs">
+                <div className="text-center h-fit my-auto flex justify-center items-center">
+                  <p className=" m-0 font-medium max-md:text-xs">
                     {title}
                   </p>
                 </div>

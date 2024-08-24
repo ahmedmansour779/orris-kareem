@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { clientsType } from "../types/apiTypes";
 
 export const fetchDataClients = async (
-  setData: SetStateAction<Dispatch<clientsType[]>>
+  setData: Dispatch<SetStateAction<clientsType[] | undefined>>
 ) => {
   const url = `${apiBaseUrl}/clients`;
 
@@ -19,7 +19,9 @@ export const fetchDataClients = async (
       }
       return response.json();
     })
-    .then((data) => setData(data))
+    .then((data) => {
+      setData(data)
+    })
     .catch((error) => {
       console.error("Fetch Error:", error);
     });
