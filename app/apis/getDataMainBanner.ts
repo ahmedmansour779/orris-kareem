@@ -1,6 +1,6 @@
+import { apiBaseUrl } from "@/flags";
 import { Dispatch, SetStateAction } from "react";
 import { mainBannerType } from "../types/apiTypes";
-import { apiBaseUrl } from "@/flags";
 
 export const fetchDataMainBanner = async (
   setData: SetStateAction<Dispatch<mainBannerType>>

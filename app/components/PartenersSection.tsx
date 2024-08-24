@@ -1,9 +1,16 @@
-import Image from "next/image";
-import Parteners from "../../public/images/parteners.png";
-import partenersData from "../data/parteners";
+"use client";
+import { useEffect, useState } from "react";
+import { fetchDataClients } from "../apis/getDataClients";
+import { clientsType } from "../types/apiTypes";
 import PartenersSwiper from "./PartenersSwiper";
 
 const PartenersSection = () => {
+  const [clientsData, setClientsData] = useState<clientsType[]>()
+
+  useEffect(() => {
+    fetchDataClients(setClientsData)
+  }, [])
+
   return (
     <div
       className="px-20 pb-32 max-md:px-5"
@@ -16,7 +23,7 @@ const PartenersSection = () => {
           Who Trusted Us
         </h2>
       </div>
-      <PartenersSwiper parteners={partenersData} />
+      <PartenersSwiper parteners={clientsData} />
       {/* <div className="  h-32  my-14 overflow-x-hidden max-md:h-24 ">
         <div className="h-full max-w-fit min-w-fit relative">
           <Image

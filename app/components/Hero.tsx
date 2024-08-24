@@ -21,7 +21,7 @@ const Hero = () => {
 
   useEffect(() => {
     fetchDataMainBanner(setDataMainBanner)
-    videoRef.current?.play()
+    // videoRef.current?.play()
   }, [])
 
   return (

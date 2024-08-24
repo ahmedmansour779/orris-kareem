@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useEffect, useState } from "react";
-import ImgsViewer from "react-images-viewer";
-import SaudiHoverDevelopment from "../../public/headerBGImg.gif";
 
 import ArrowLeft from "../../public/icons/arrow-left.png";
 import ArrowRight from "../../public/icons/arrow-right.png";
 
 import Image from "next/image";
-import { projectsData } from "../data/projectsData";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -32,37 +29,37 @@ const WorkSection = () => {
 
   const dataPopUp: { src: string, isVideo?: boolean }[][] = [];
 
-  const gotoPrevious = (index:number) => {
+  const gotoPrevious = (index: number) => {
     // console.log("Nextprev",index-1)
-    if(index-1 >= 0 ){
+    if (index - 1 >= 0) {
       setNext(false)
-      setIndexTwo(prev=>prev-1)
-      const mySrc = dataPopUp[indexOne][index-1].src
-      const video:any = dataPopUp[indexOne][index-1].isVideo
+      setIndexTwo(prev => prev - 1)
+      const mySrc = dataPopUp[indexOne][index - 1].src
+      const video: any = dataPopUp[indexOne][index - 1].isVideo
       // console.log(mySrc)
       // console.log(video)
       setIsVideo(video)
       setSrc(mySrc)
     }
-    else{
+    else {
       setPrev(true)
       setNext(false)
     }
   };
 
-  const gotoNext = (index:number) => {
+  const gotoNext = (index: number) => {
     // console.log("next",index+1)
-    if(index+1 < dataPopUp[indexOne].length){
+    if (index + 1 < dataPopUp[indexOne].length) {
       setPrev(false)
-      setIndexTwo(prev=>prev+1)
-      const mySrc = dataPopUp[indexOne][index+1].src
-      const video:any = dataPopUp[indexOne][index+1].isVideo
+      setIndexTwo(prev => prev + 1)
+      const mySrc = dataPopUp[indexOne][index + 1].src
+      const video: any = dataPopUp[indexOne][index + 1].isVideo
       // console.log(mySrc)
       // console.log(video)
       setIsVideo(video)
       setSrc(mySrc)
     }
-    else{
+    else {
       setNext(true)
       setPrev(false)
     }
@@ -198,36 +195,65 @@ const WorkSection = () => {
       {viewerIsOpen && (
         <div className="fixed inset-0 px-3 sm:px-10 z-50 bg-black bg-opacity-80 flex items-center justify-center">
           <button
-                className="absolute top-4 right-4 text-white text-3xl"
-                onClick={closeViewer}
-              >
-                &times;
+            className="absolute top-4 right-4 text-white text-3xl"
+            onClick={closeViewer}
+          >
+            &times;
           </button>
-          <button disabled={prev} onClick={()=>{
+          <button disabled={prev} onClick={() => {
             gotoPrevious(indexTwo)
-            }} className="w-14 sm:w-auto">
+          }} className="w-14 sm:w-auto">
             <Image src={ArrowLeft} className="w-full max-md:w-6" alt="" />
           </button>
           {isVideo ? (
-              <video
-                className="w-[80%] sm:w-3/4 h-auto mx-2 sm:mx-5"
-                controls
-                autoPlay
-              >
-                <source
-                  src={src}
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
+            <video
+              className="w-[80%] sm:w-[65%] h-auto mx-2 sm:mx-5"
+              controls
+              autoPlay
+            >
+              <source
+                src={src}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           ) : (
-            <img src={src} alt="Image" className="w-[80%] sm:w-3/4 h-auto mx-2 sm:mx-5" />
+            <img src={src} alt="Image" className="w-[80%] sm:w-[65%] h-auto mx-2 sm:mx-5" />
           )}
-          <button disabled={next} onClick={()=>{
+          <button disabled={next} onClick={() => {
             gotoNext(indexTwo)
           }} className="w-14 sm:w-auto">
             <Image src={ArrowRight} className="w-full max-md:w-6" alt="" />
           </button>
+          <div className="flex gap-2 absolute bottom-1 left-1/2 -translate-x-1/2">
+            {
+              dataPopUp[indexOne].map((image, index) => (
+                image.isVideo ?
+                  <div key={index} className="cursor-pointer w-12 sm:w-16" onClick={() => {
+                    setIsVideo(true)
+                    setSrc(image.src)
+                    setIndexTwo(index)
+                  }}>
+                    <video
+                      className="w-full h-auto"
+                    >
+                      <source
+                        src={image.src}
+                        type="video/mp4"
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                  : <div key={index} className="cursor-pointer w-12 sm:w-16" onClick={() => {
+                    setIsVideo(false)
+                    setSrc(image.src)
+                    setIndexTwo(index)
+                  }}>
+                    <img src={image.src} alt="Image" className="w-full h-auto" />
+                  </div>
+              ))
+            }
+          </div>
         </div>
       )}
     </div>
@@ -239,38 +265,38 @@ export default WorkSection;
 
 
 // <ImgsViewer
-          //   imgs={dataPopUp[currentImg]}
-          //   currImg={currImg}
-          //   showThumbnails={true}
-          //   isOpen={viewerIsOpen}
-          //   onClickPrev={gotoPrevious}
-          //   onClickNext={gotoNext}
-          //   onClose={closeViewer}
-          //   onClickThumbnail={(id) => setCurrImg(id)}
-          //   onClickImg={gotoNext}
-          //   width={1200}
-          //   theme={{
-          //     arrow: {
-          //       backgroundColor: "#fff",
-          //       fill: "#000",
-          //       borderRadius: 50,
-          //       transition: "opacity 200ms",
-          //     },
-          //     arrow__size__medium: {
-          //       height: 48,
-          //       width: `48px !important`,
-          //     },
-          //     arrow__size__small: {
-          //       marginTop: 0,
-          //       height: `40px !important`,
-          //       position: "inherit",
-          //     },
-          //     arrow__direction__left: {
-          //       position: "initial",
-          //       order: "-1",
-          //       marginTop: 0,
-          //     },
-          //     arrow__direction__right: { position: "initial", marginTop: 0 },
-          //     container: { gap: 20 },
-          //   }}
-          // />
+//   imgs={dataPopUp[currentImg]}
+//   currImg={currImg}
+//   showThumbnails={true}
+//   isOpen={viewerIsOpen}
+//   onClickPrev={gotoPrevious}
+//   onClickNext={gotoNext}
+//   onClose={closeViewer}
+//   onClickThumbnail={(id) => setCurrImg(id)}
+//   onClickImg={gotoNext}
+//   width={1200}
+//   theme={{
+//     arrow: {
+//       backgroundColor: "#fff",
+//       fill: "#000",
+//       borderRadius: 50,
+//       transition: "opacity 200ms",
+//     },
+//     arrow__size__medium: {
+//       height: 48,
+//       width: `48px !important`,
+//     },
+//     arrow__size__small: {
+//       marginTop: 0,
+//       height: `40px !important`,
+//       position: "inherit",
+//     },
+//     arrow__direction__left: {
+//       position: "initial",
+//       order: "-1",
+//       marginTop: 0,
+//     },
+//     arrow__direction__right: { position: "initial", marginTop: 0 },
+//     container: { gap: 20 },
+//   }}
+// />

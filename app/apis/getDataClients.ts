@@ -1,6 +1,10 @@
 import { apiBaseUrl } from "@/flags";
+import { Dispatch, SetStateAction } from "react";
+import { clientsType } from "../types/apiTypes";
 
-export const fetchDataClients = async () => {
+export const fetchDataClients = async (
+  setData: SetStateAction<Dispatch<clientsType[]>>
+) => {
   const url = `${apiBaseUrl}/clients`;
 
   fetch(url, {
@@ -15,7 +19,7 @@ export const fetchDataClients = async () => {
       }
       return response.json();
     })
-    .then((data) => console.log(data))
+    .then((data) => setData(data))
     .catch((error) => {
       console.error("Fetch Error:", error);
     });

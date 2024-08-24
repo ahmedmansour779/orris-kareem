@@ -3,7 +3,7 @@ import partener2 from "../../public/images/partener (2).png";
 import partener3 from "../../public/images/partener (3).png";
 import partener4 from "../../public/images/partener (4).png";
 
-type partenerType = {
+export type partenerType = {
   id: number;
   image: string;
 };

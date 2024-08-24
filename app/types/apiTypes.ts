@@ -38,3 +38,8 @@ export type projectsType = {
     cover: string
     images: string[]
 }
+export type clientsType = {
+    id: string
+    name: string
+    image: string
+}

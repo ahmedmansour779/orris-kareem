@@ -5,15 +5,16 @@ import ArrowRight from "../../public/icons/arrow-right.png";
 
 import Image from "next/image";
 
-import { Autoplay, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
+import { Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { clientsType } from "../types/apiTypes";
 
 const PartenersSwiper = ({
   parteners,
 }: {
-  parteners: { id: number; image: string }[];
+  parteners: clientsType[] | undefined;
 }) => {
   return (
     <div className="relative">
@@ -33,7 +34,7 @@ const PartenersSwiper = ({
           768: { spaceBetween: 40 },
         }}
       >
-        {parteners
+        {parteners && parteners
           .concat(parteners)
           .concat(parteners)
           .map(({ id, image }, index) => (
