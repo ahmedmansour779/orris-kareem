@@ -219,7 +219,6 @@ const WorkSection = () => {
             </video>
           ) : (
             <img src={src} alt="Image" className="w-[80%] sm:w-[65%] h-auto mx-2 sm:mx-5" />
-            <img src={src} alt="Image" className="w-[80%] sm:w-[65%] h-auto mx-2 sm:mx-5" />
           )}
           <button disabled={next} onClick={() => {
             gotoNext(indexTwo)
