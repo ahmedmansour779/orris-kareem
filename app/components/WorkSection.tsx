@@ -151,7 +151,7 @@ const WorkSection = () => {
             <SwiperSlide className="!h-auto" key={index}>
               <div
                 key={index}
-                className="w-full bg-white rounded-[4px] px-2 py-2 grid gap-1 group cursor-pointer border-[1px] border-[#B0B0B0] h-full max-md:gap-2 max-md:pb-2"
+                className="w-full bg-[#00FF9D] rounded-3xl overflow-hidden grid gap-1 group cursor-pointer border-[1px] border-[#B0B0B0] h-full max-md:gap-2 max-md:pb-2 "
                 onClick={() => handleClickSlide(index)}
               >
                 <div className="w-full relative max-h-[220px]">

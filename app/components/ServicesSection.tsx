@@ -2,9 +2,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { fetchDataClients } from "../apis/getDataClients";
-import { fetchDataServices } from "../apis/getDataServices";
 import { servicesData } from "../data/servicesData";
-import { servicesType, clientsType } from "../types/apiTypes";
+import { clientsType, servicesType } from "../types/apiTypes";
 
 const ServicesSection = () => {
   const [growed, setGrowed] = useState(0);
@@ -68,9 +67,8 @@ const ServicesSection = () => {
                   height={0}
                   sizes="100vw"
                   style={{ width: "100%", height: "100%" }} // optional
-                  className={`${
-                    growed === index ? "opacity-100" : "opacity-0"
-                  } absolute h-full w-full left-0 top-0 duration-300 object-cover object-center`}
+                  className={`${growed === index ? "opacity-100" : "opacity-0"
+                    } absolute h-full w-full left-0 top-0 duration-300 object-cover object-center`}
                   alt=""
                 />
                 <div className="absolute w-full top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-[#000000] to-[#00000000] z-10"></div>

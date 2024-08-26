@@ -1,11 +1,11 @@
-import zakatImg from "../../public/images/zakat.png";
-import zakatHoverImg from "../../public/images/zakatHoverImg.png";
+import zakatImg from "../../public/images/services/items1-big.png";
+import zakatHoverImg from "../../public/images/services/items1-smail.png";
 
-import saberImg from "../../public/images/saber.gif";
-import saberHoverImage from "../../public/images/saberHoverImage.png";
+import saberImg from "../../public/images/services/item2-big.png";
+import saberHoverImage from "../../public/images/services/item2-smail.png";
 
-import SaudiHoverDevelopment from "../../public/headerBGImg.gif";
-import SaudiDevelopment from "../../public/images/SaudiDevelopment.png";
+import SaudiDevelopment from "../../public/images/services/item3-big.png";
+import SaudiHoverDevelopment from "../../public/images/services/item3-smail.png";
 
 type servicesType = {
   id: number;

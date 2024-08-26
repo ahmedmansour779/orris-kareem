@@ -25,7 +25,7 @@ const CountersSection = () => {
     <div className=" pt-14 pb-32">
       <div
         ref={ref}
-        className="flex justify-around items-center  gap-2"
+        className="flex justify-around items-center gap-2"
         data-aos="fade-up"
         data-aos-duration="1200"
       >

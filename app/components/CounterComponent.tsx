@@ -31,7 +31,7 @@ const CounterComponent = ({
     };
   }, [currentNumberInQueue, count]); // Add currentNumberInQueue and count as dependencies
   return (
-    <div className={`flex flex-col  items-center gap-4`}>
+    <div className={`flex flex-col items-center gap-4 sm:w-fit w-1/3`}>
       {/* <div className="flex justify-end w-full">
         <h2 className="text-white text-7xl font-normal text-end">+</h2>
       </div> */}
@@ -47,9 +47,8 @@ const CounterComponent = ({
                   return (
                     <div
                       key={index}
-                      className={`w-3 h-3 max-md:w-2 max-md:h-2 rounded-full ${
-                        isCoordinated ? "bg-[#00FF9D]" : "bg-[#616161]"
-                      }`}
+                      className={`w-3 h-3 max-md:w-2 max-md:h-2 rounded-full ${isCoordinated ? "bg-[#00FF9D]" : "bg-[#616161]"
+                        }`}
                     />
                   );
                 })}

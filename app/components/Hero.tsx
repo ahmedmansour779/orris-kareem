@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DisableSound from "../../public/images/disable-sound.png";
 import EnableSound from "../../public/images/enable-sound.png";
 import { fetchDataMainBanner } from "../apis/getDataMainBanner";
@@ -12,7 +12,8 @@ const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [dataMainBanner, setDataMainBanner] = useState<mainBannerType | null>(null);
-
+  const [showVideo, setShowVideo] = useState<boolean>(false)
+  const [hiddenText, setHiddenText] = useState<boolean>(false)
   const handleMuteUnmute = () => {
     if (videoRef.current) {
       videoRef.current.muted = !isMuted;
@@ -27,12 +28,23 @@ const Hero = () => {
   }, [])
 
   console.log(dataMainBanner)
-
+  setTimeout(() => {
+    dataMainBanner?.video_link ?
+      setShowVideo(true) :
+      setShowVideo(false)
+  },
+    3800)
+  setTimeout(() => {
+    dataMainBanner?.video_link ?
+      setHiddenText(true) :
+      setHiddenText(false)
+  },
+    4000)
   return (
     <>
-      <Navbar video={dataMainBanner?.video_link ? true : false}/>
+      <Navbar video={hiddenText} />
       <div className="pt-14 h-screen bg-center bg-cover relative max-md:h-[384px]">
-        <div className={`${dataMainBanner?.video_link ? "hidden" : "block"} absolute top-0 left-0 right-0 bottom-0 bg-[#00000099] h-full w-full flex justify-center items-center`}>
+        <div className={`${hiddenText ? "hidden" : "block"} absolute top-0 left-0 right-0 bottom-0 bg-[#00000099] h-full w-full flex justify-center items-center`}>
           <div className="text-center w-full max-md:px-6 max-md:pt-12">
             <h2 className="text-[5rem] font-bold leading-[120px] text-white max-md:text-[2.25rem] max-md:leading-[44px] whitespace-nowrap">
               Where Creativity
@@ -54,7 +66,7 @@ const Hero = () => {
           autoPlay
           loop
           muted={isMuted}
-          src={dataMainBanner?.video_link ? `${dataMainBanner.video_link}` : "/video/video.mp4"}
+          src={showVideo ? `${dataMainBanner?.video_link}` : "/video/video.mp4"}
         >
           {/* {
             dataMainBanner ?
