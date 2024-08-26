@@ -44,7 +44,7 @@ const Hero = () => {
     <>
       <Navbar video={hiddenText} />
       <div className="pt-14 h-screen bg-center bg-cover relative max-md:h-[384px]">
-        <div className={`${hiddenText ? "hidden" : "block"} absolute top-0 left-0 right-0 bottom-0 bg-[#00000099] h-full w-full flex justify-center items-center`}>
+        <div className={`${hiddenText ? "opacity-0" : "opacity-100"} absolute top-0 left-0 right-0 bottom-0 bg-[#00000099] h-full w-full flex justify-center items-center transition-all ease-in-out duration-1000`}>
           <div className="text-center w-full max-md:px-6 max-md:pt-12">
             <h2 className="text-[5rem] font-bold leading-[120px] text-white max-md:text-[2.25rem] max-md:leading-[44px] whitespace-nowrap">
               Where Creativity
@@ -60,13 +60,13 @@ const Hero = () => {
           </div>
         </div>
         <video
-          className="absolute top-0 left-0 right-0 bottom-0 w-full h-full -z-10 object-cover"
+          className={`absolute top-0 left-0 right-0 bottom-0 w-full h-full -z-10 object-cover transition-all ease-in-out duration-1000 ${showVideo ? "opacity-100" : "opacity-0"}`}
           ref={videoRef}
           controls={false}
           autoPlay
           loop
           muted={isMuted}
-          src={showVideo ? `${dataMainBanner?.video_link}` : "/video/video.mp4"}
+          src={dataMainBanner ? `${dataMainBanner?.video_link}` : "/video/video.mp4"}
         >
           {/* {
             dataMainBanner ?

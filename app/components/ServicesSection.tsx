@@ -53,16 +53,16 @@ const ServicesSection = () => {
                 }}
               >
                 <Image
-                  src={dataService ? dataService[index].image : image}
+                  src={hoveringImage}
                   alt=""
                   width={0}
                   height={0}
                   sizes="100vw"
-                  style={{ width: "100%", height: "100%" }}
-                  className="object-cover"
+                  style={{ width: "100%" }}
+                  className="object-center"
                 />
                 <Image
-                  src={hoveringImage}
+                  src={image}
                   width={0}
                   height={0}
                   sizes="100vw"
@@ -72,11 +72,6 @@ const ServicesSection = () => {
                   alt=""
                 />
                 <div className="absolute w-full top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-[#000000] to-[#00000000] z-10"></div>
-                <div className="text-center absolute w-full bottom-5 left-0 z-20">
-                  <h3 className="text-3xl font-bold text-white">
-                    {dataService ? dataService[index].title : title}
-                  </h3>
-                </div>
               </div>
             );
           })}

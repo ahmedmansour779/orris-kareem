@@ -159,7 +159,7 @@ const WorkSection = () => {
                     <Image
                       width={0}
                       height={0}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full "
                       sizes="100vw"
                       src={cover}
                       alt=""
