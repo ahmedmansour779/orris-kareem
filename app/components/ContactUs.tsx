@@ -46,7 +46,7 @@ const ContactUs = () => {
       className={`grid grid-cols-3 max-xl:grid-cols-2 max-lg:grid-cols-1 gap-28 px-20 pb-16 max-md:px-5 max-xl:gap-12 max-md:gap-8`}
     >
       <div className="xl:col-span-2">
-        <h2 className="text-white text-5xl font-semibold mb-12  max-md:text-center max-md:mb-6 max-md:text-4xl">
+        <h2 className="text-white text-5xl font-semibold mb-12 max-md:mb-6 max-md:text-4xl">
           Contact Us
         </h2>
         <p className="text-white text-3xl font-light max-md:text-lg">
