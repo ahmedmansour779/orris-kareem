@@ -66,7 +66,7 @@ const Hero = () => {
           autoPlay
           loop
           muted={isMuted}
-          src={dataMainBanner ? `${dataMainBanner?.video_link}` : "/video/video.mp4"}
+          src={"/video/video.mp4"}
         >
           {/* {
             dataMainBanner ?

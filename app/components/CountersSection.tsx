@@ -31,7 +31,7 @@ const CountersSection = () => {
       >
         {(isIntersecting || isInit) && (
           <>
-            <CounterComponent count={data?.countries} title="Countries" />
+            <CounterComponent count={data ? data.countries : 10} title="Countries" />
             <CounterComponent count={data ? +data.clients : 25} title="Clients" />
             <CounterComponent count={data ? +data.projects : 72} title="Projects" />
           </>
