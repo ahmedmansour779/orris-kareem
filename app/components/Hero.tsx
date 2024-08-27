@@ -10,7 +10,7 @@ import Navbar from "./Navbar";
 
 const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
   const [dataMainBanner, setDataMainBanner] = useState<mainBannerType | null>(null);
   const [showVideo, setShowVideo] = useState<boolean>(false)
   const [hiddenText, setHiddenText] = useState<boolean>(false)
