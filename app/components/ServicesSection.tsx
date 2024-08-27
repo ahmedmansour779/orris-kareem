@@ -10,13 +10,13 @@ const ServicesSection = () => {
   const [dataService, setDataService] = useState<servicesType[] | null>(null);
   const [dataClients, setDataClients] = useState<clientsType[]>(); // New state for client data
   const widthScreen = window.innerWidth
-  console.log(widthScreen);
-
 
   useEffect(() => {
     // Fetch client data and update the state
     fetchDataClients(setDataClients); // Use setDataClients to handle client data
-
+    if (widthScreen < 786) {
+      setGrowed(5)
+    }
     // Uncomment the line below if you intend to fetch services data
     // fetchDataServices(setDataService);
   }, []);
@@ -53,11 +53,13 @@ const ServicesSection = () => {
             return (
               <div
                 key={id}
-                className={`${growed === index ? "flex-1" : "w-[150px]"} min-w-[150px] h-[360px] rounded-[1.25rem] border-[1px] border-[#B0B0B0] relative overflow-hidden duration-300 max-md:w-full max-md:h-full`}
+                className={`${growed === index ? "flex-1" : "w-[150px]"} min-w-[150px] md:h-[360px] rounded-[1.25rem] border-[1px] border-[#B0B0B0] relative overflow-hidden duration-300 max-md:w-full max-md:h-full`}
                 onMouseOver={() => {
-                  setGrowed(index);
+                  widthScreen > 786 ?
+                    setGrowed(index) :
+                    null
                 }}
-              >
+              >s
                 <Image
                   src={hoveringImage}
                   alt=""
