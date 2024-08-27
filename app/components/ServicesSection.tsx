@@ -9,6 +9,9 @@ const ServicesSection = () => {
   const [growed, setGrowed] = useState(0);
   const [dataService, setDataService] = useState<servicesType[] | null>(null);
   const [dataClients, setDataClients] = useState<clientsType[]>(); // New state for client data
+  const widthScreen = window.innerWidth
+  console.log(widthScreen);
+
 
   useEffect(() => {
     // Fetch client data and update the state
@@ -17,6 +20,9 @@ const ServicesSection = () => {
     // Uncomment the line below if you intend to fetch services data
     // fetchDataServices(setDataService);
   }, []);
+
+
+
 
   return (
     <div

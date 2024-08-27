@@ -6,7 +6,7 @@ const CounterComponent = ({
   count,
   title,
 }: {
-  count: number;
+  count: number | null | undefined;
   title: string;
 }) => {
   const [currentNumberInQueue, setCurrentNumberInQueue] = useState<number>(0);
@@ -15,7 +15,7 @@ const CounterComponent = ({
   useEffect(() => {
     let interval: ReturnType<typeof setInterval> | undefined; // Type inference for interval
 
-    if (currentNumberInQueue !== count) {
+    if (currentNumberInQueue !== count && count) {
       const duration = (index: number) => {
         const x = index > count / 2 ? index / count : 1 - index / count;
         return (4000 / count) * x;

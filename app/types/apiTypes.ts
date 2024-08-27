@@ -14,9 +14,9 @@ export type mainBannerType = {
 }
 export type statsType = {
     id: string
-    countries: string
-    clients: string
-    projects: string
+    countries: number
+    clients: number
+    projects: number
 }
 export type servicesType = {
     id: string
